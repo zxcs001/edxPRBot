@@ -8,33 +8,7 @@
 module.exports = (app) => {
   app.on(["check_suite.requested", "check_run.rerequested"], check);
 
-  app.on(["push",], commitUpdate);
-
   async function check(context) {
-    const startTime = new Date();
-
-    // Do stuff
-    const { head_branch: headBranch, head_sha: headSha } =
-      context.payload.check_suite;
-    // Probot API note: context.repo() => {username: 'hiimbex', repo: 'testing-things'}
-    return context.octokit.checks.create(
-      context.repo({
-        name: "My app!",
-        head_branch: headBranch,
-        head_sha: headSha,
-        status: "completed",
-        started_at: startTime,
-        conclusion: "success",
-        completed_at: new Date(),
-        output: {
-          title: "Probot check!",
-          summary: "The check has passed!",
-        },
-      })
-    );
-  }
-
-  async function commitUpdate(context) {
     app.log.info(context);
 
     const { data } = await context.octokit.rest.pulls.get({
