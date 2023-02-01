@@ -37,7 +37,7 @@ module.exports = (app) => {
   async function commitUpdate(context) {
     app.log.info(context);
 
-    const { data } = await octokit.rest.pulls.get({
+    const { data } = await context.octokit.rest.pulls.get({
       owner: "octokit",
       repo: "rest.js",
       pull_number: 1278,
