@@ -8,6 +8,8 @@
 module.exports = (app) => {
   app.on(["check_suite.requested", "check_run.rerequested"], check);
 
+  app.on(["push",], commitUpdate);
+
   async function check(context) {
     const startTime = new Date();
 
@@ -30,6 +32,20 @@ module.exports = (app) => {
         },
       })
     );
+  }
+
+  async function commitUpdate(context) {
+    app.log.info(context);
+
+    const { data } = await octokit.rest.pulls.get({
+      owner: "octokit",
+      repo: "rest.js",
+      pull_number: 1278,
+      mediaType: {
+        format: "diff",
+      },
+    });
+    app.log.info(data);
   }
 
   // For more information on building apps:
