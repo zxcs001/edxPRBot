@@ -97,8 +97,8 @@
     context.log("Reacted with +1");
 
     // Approve the PR
-    // approvePullRequest(context);
-    dismissPullRequest(context)
+    approvePullRequest(context);
+    //dismissPullRequest(context)
     applyLabels(context, config.apply_labels );
     context.log("PR dismissed");
 
@@ -122,7 +122,7 @@ async function approvePullRequest (context) {
 }
 
 async function dismissPullRequest (context) {
-  // Approve the PR
+  // Dismiss the PR
   const prParams = context.pullRequest({ event: 'DISMISS' })
   await context.octokit.pulls.createReview(prParams)
 }
