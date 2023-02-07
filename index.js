@@ -96,7 +96,7 @@
     });
     context.log("Reacted with +1");
 
-    // Approve the PR
+    //Approve the PR
     approvePullRequest(context);
     //dismissPullRequest(context)
     applyLabels(context, config.apply_labels );
